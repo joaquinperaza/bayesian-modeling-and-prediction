@@ -1,0 +1,58 @@
+---
+title: "Assignment 1"
+author: "Joaquin Peraza"
+date: "2023-01-17"
+output: html_document
+---
+
+1. Take 500 draws from a normal distribution that has an expected value of 2 and a variance of 9. Make a histogram of these 500 draws.
+
+```{r}
+draws<-rnorm(500, mean = 2, sd = sqrt(9))
+hist(draws)
+```
+
+2. Calculate the sample mean from the 500 draws from problem 1.
+
+```{r}
+mean(draws)
+```
+
+3. Take 500 draws from Bernoulli distribution that has an expected value of 0.5. Make a histogram of these 500 draws.
+
+```{r}
+draws<-rbinom(500, 1,.5)
+hist(draws)
+```
+
+4. Calculate the sample mean from the 500 draws from problem 3.
+
+```{r}
+mean(draws)
+```
+
+5. Take 500 draws from Bernoulli distribution that has a variance of 0.25.
+
+$$
+\sigma^2 = p(1-p) \\
+0.25 = p(1-p) \\
+p = 0.5
+$$
+
+```{r}
+draws<-rbinom(500, 1,.5)
+```
+
+6. Take 500 draws from a normal distribution that has an expected value of 0 and a variance of 1. Raise these 500 draws to the second power and make a histogram.
+
+
+```{r}
+draws<-rnorm(500, mean = 0, sd = sqrt(1))
+draws_power <- draws^2
+hist(draws_power)
+```
+
+7. What well-known and named probability density function is shown in the histogram you made in question 6.
+
+
+|       **Poisson distribution**
