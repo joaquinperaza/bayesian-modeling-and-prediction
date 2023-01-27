@@ -362,15 +362,15 @@ display: none;
 <h4>1. Solve the integral analytically <span class="math inline">\(∫_{1}^0[a]da\)</span></h4>
 <p><span class="math inline">\(∫_{1}^0 \frac{ \Gamma(\alpha+\beta)}{
 \Gamma(\alpha) \cdot \Gamma(\beta)} \cdot x^{\alpha-1} \cdot
-(1-x)^{\beta-1}dx\)</span></p>
+(1-x)^{\beta-1} \ dx\)</span></p>
 <p><span class="math inline">\(\frac{ \Gamma(2+1)}{ \Gamma(2) \cdot
-\Gamma(1)} \cdot ∫_{1}^0 x^{\alpha-1} \cdot
-(1-x)^{\beta-1}dx\)</span></p>
-<p><span class="math inline">\(\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0
-x^{\alpha-1} \cdot (1-x)^{\beta-1}dx\)</span></p>
-<p><span class="math inline">\(2 ∫_{1}^0 x \cdot (1-x)^{0}
+\Gamma(1)} \cdot ∫_{1}^0 x^{\alpha-1} \cdot (1-x)^{\beta-1} \
 dx\)</span></p>
-<p><span class="math inline">\(2 ∫_{1}^0x dx\)</span></p>
+<p><span class="math inline">\(\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0
+x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx\)</span></p>
+<p><span class="math inline">\(2 ∫_{1}^0 x \cdot (1-x)^{0} \
+dx\)</span></p>
+<p><span class="math inline">\(2 ∫_{1}^0x \ dx\)</span></p>
 <p><span class="math inline">\(A(x)=2 \cdot \frac{x^2}{2}\)</span></p>
 <p><span class="math inline">\(A(x)= x^{2}\)</span></p>
 <p><span class="math inline">\(∫_{1}^0[a]da = A(1)-A(0)\)</span></p>
@@ -434,15 +434,15 @@ your answer matches that of the expected value of a beta distribution
 with α=2 and β=1</h4>
 <p><span class="math inline">\(∫_{1}^0 x \cdot \frac{
 \Gamma(\alpha+\beta)}{ \Gamma(\alpha) \cdot \Gamma(\beta)} \cdot
-x^{\alpha-1} \cdot (1-x)^{\beta-1}dx\)</span></p>
+x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx\)</span></p>
 <p><span class="math inline">\(\frac{ \Gamma(2+1)}{ \Gamma(2) \cdot
-\Gamma(1)} \cdot ∫_{1}^0 x \cdot x^{\alpha-1} \cdot
-(1-x)^{\beta-1}dx\)</span></p>
+\Gamma(1)} \cdot ∫_{1}^0 x \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1} \
+dx\)</span></p>
 <p><span class="math inline">\(\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0 x
-\cdot x^{\alpha-1} \cdot (1-x)^{\beta-1}dx\)</span></p>
-<p><span class="math inline">\(2 ∫_{1}^0 x \cdot x^{2-1} \cdot
-(1-x)^{0}dx\)</span></p>
-<p><span class="math inline">\(2 ∫_{1}^0 x^2 dx\)</span></p>
+\cdot x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx\)</span></p>
+<p><span class="math inline">\(2 ∫_{1}^0 x \cdot x^{2-1} \cdot (1-x)^{0}
+\ dx\)</span></p>
+<p><span class="math inline">\(2 ∫_{1}^0 x^2 \ dx\)</span></p>
 <p><span class="math inline">\(A(x)=2 \cdot \frac{x^3}{3}\)</span></p>
 <p><span class="math inline">\(A(1) - A(0) = \frac{2}{3} - 0 =
 \frac{2}{3}\)</span></p>
@@ -481,12 +481,12 @@ log(\frac{1}{sin(a)})[a]da\)</span> analytically.</h4>
 <p><span class="math inline">\(2 ∫_{1}^0 log(\frac{1}{sin(x)}) x
 dx\)</span></p>
 <p><span class="math inline">\(-2 ∫_{1}^0 log(sin(x)) x dx\)</span></p>
-<p><span class="math inline">\(ln(u(x))*v(x) = ln(u(x))v(x)/u(x)
-u&#39;(x)\)</span></p>
-<pre class="r"><code>library(pracma)
-f&lt;-(\(x) x^2*log(csc(x)))
-f(.99999999999999999)-f(0.0000000000000001)</code></pre>
-<pre><code>## [1] 0.1726037</code></pre>
+<p><span class="math inline">\(∫f(x)g&#39;(x) \ dx = f(x)g(x) -
+∫f&#39;(x)g(x)\)</span></p>
+<p><span class="math inline">\(f(x)=log(sin(x)) \ \ \ \
+g&#39;(x)=x\)</span></p>
+<p><span class="math inline">\(-2log(sin(x)) \cdot \frac{x^2}{2} - ∫
+\frac{cos(x)}{sin(x)} \cdot \frac{x^2}{2} dx\)</span></p>
 </div>
 <div id="approximate-the-integral-_01-logfrac1sinaada-using-monte-carlo-integration-with-k100-draws" class="section level4">
 <h4>9. Approximate the integral <span class="math inline">\(∫_{0}^1
@@ -500,7 +500,6 @@ a&lt;- runif(K,0,1)
 draws&lt;-dbeta(a,alpha,beta)
 mean(log(1/sin(a)) * draws)</code></pre>
 <pre><code>## [1] 0.5874721</code></pre>
-<pre class="r"><code>#0.1773417</code></pre>
 </div>
 
 

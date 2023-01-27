@@ -13,15 +13,15 @@ Given [a]: $a∼beta(α=2,β=1)$
 
 #### 1. Solve the integral analytically  $∫_{1}^0[a]da$
 
-$∫_{1}^0 \frac{ \Gamma(\alpha+\beta)}{ \Gamma(\alpha) \cdot \Gamma(\beta)} \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1}dx$
+$∫_{1}^0 \frac{ \Gamma(\alpha+\beta)}{ \Gamma(\alpha) \cdot \Gamma(\beta)} \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx$
 
-$\frac{ \Gamma(2+1)}{ \Gamma(2) \cdot \Gamma(1)} \cdot ∫_{1}^0   x^{\alpha-1} \cdot (1-x)^{\beta-1}dx$
+$\frac{ \Gamma(2+1)}{ \Gamma(2) \cdot \Gamma(1)} \cdot ∫_{1}^0   x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx$
 
-$\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0  x^{\alpha-1} \cdot (1-x)^{\beta-1}dx$
+$\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0  x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx$
 
-$2  ∫_{1}^0  x \cdot (1-x)^{0} dx$
+$2  ∫_{1}^0  x \cdot (1-x)^{0} \ dx$
 
-$2  ∫_{1}^0x  dx$
+$2  ∫_{1}^0x \ dx$
 
 $A(x)=2 \cdot \frac{x^2}{2}$
 
@@ -72,15 +72,15 @@ The analytical method returned 1 which was the exact value of the integral. But 
 #### 5.Solve the integral $∫_{1}^0a[a]da$ analytically. Verify that your answer matches that of the expected value of a beta distribution with  α=2 and β=1
 
 
-$∫_{1}^0 x \cdot \frac{ \Gamma(\alpha+\beta)}{ \Gamma(\alpha) \cdot \Gamma(\beta)} \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1}dx$
+$∫_{1}^0 x \cdot \frac{ \Gamma(\alpha+\beta)}{ \Gamma(\alpha) \cdot \Gamma(\beta)} \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx$
 
-$\frac{ \Gamma(2+1)}{ \Gamma(2) \cdot \Gamma(1)} \cdot ∫_{1}^0 x \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1}dx$
+$\frac{ \Gamma(2+1)}{ \Gamma(2) \cdot \Gamma(1)} \cdot ∫_{1}^0 x \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx$
 
-$\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0 x \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1}dx$
+$\frac{ 2!}{ 1! \cdot 0!} \cdot ∫_{1}^0 x \cdot x^{\alpha-1} \cdot (1-x)^{\beta-1} \ dx$
 
-$2 ∫_{1}^0 x \cdot x^{2-1} \cdot (1-x)^{0}dx$
+$2 ∫_{1}^0 x \cdot x^{2-1} \cdot (1-x)^{0} \ dx$
 
-$2 ∫_{1}^0 x^2 dx$
+$2 ∫_{1}^0 x^2 \ dx$
 
 $A(x)=2 \cdot \frac{x^3}{3}$
 
@@ -124,15 +124,11 @@ $2 ∫_{1}^0 log(\frac{1}{sin(x)}) x dx$
  
 $-2 ∫_{1}^0 log(sin(x)) x dx$
 
-$ln(u(x))*v(x) = ln(u(x))v(x)/u(x) u'(x)$
+$∫f(x)g'(x) \ dx = f(x)g(x) - ∫f'(x)g(x)$
 
-```{r Q8}
-library(pracma)
-f<-(\(x) x^2*log(csc(x)))
-f(.99999999999999999)-f(0.0000000000000001)
+$f(x)=log(sin(x)) \ \ \ \ g'(x)=x$
 
-
-```
+$-2log(sin(x)) \cdot \frac{x^2}{2} - ∫ \frac{cos(x)}{sin(x)} \cdot  \frac{x^2}{2} dx$
 
 
 
@@ -147,7 +143,6 @@ a<- runif(K,0,1)
 draws<-dbeta(a,alpha,beta)
 mean(log(1/sin(a)) * draws)
 
-#0.1773417
 
 ```
 
