@@ -424,7 +424,8 @@ numerical methods can be increased at the expense of more computing
 effort, dependending on the importance of the precission in this
 operations and the available resources the parameters M or K can be
 increased to achieve better results to split the area under the curve
-into more smallers quadrants or increase the number of random draws.</p>
+into more smallers quadrants or to increase the number of random
+draws.</p>
 <p> </p>
 </div>
 <div id="solve-the-integral-_10aada-analytically.-verify-that-your-answer-matches-that-of-the-expected-value-of-a-beta-distribution-with-α2-and-β1" class="section level4">
@@ -477,22 +478,29 @@ mean(a*draws)</code></pre>
 <div id="solve-the-integral-_01-logfrac1sinaada-analytically." class="section level4">
 <h4>8. Solve the integral <span class="math inline">\(∫_{0}^1
 log(\frac{1}{sin(a)})[a]da\)</span> analytically.</h4>
+<p><span class="math inline">\(2 ∫_{1}^0 log(\frac{1}{sin(x)}) x
+dx\)</span></p>
+<p><span class="math inline">\(-2 ∫_{1}^0 log(sin(x)) x dx\)</span></p>
+<p><span class="math inline">\(ln(u(x))*v(x) = ln(u(x))v(x)/u(x)
+u&#39;(x)\)</span></p>
+<pre class="r"><code>library(pracma)
+f&lt;-(\(x) x^2*log(csc(x)))
+f(.99999999999999999)-f(0.0000000000000001)</code></pre>
+<pre><code>## [1] 0.1726037</code></pre>
 </div>
 <div id="approximate-the-integral-_01-logfrac1sinaada-using-monte-carlo-integration-with-k100-draws" class="section level4">
 <h4>9. Approximate the integral <span class="math inline">\(∫_{0}^1
 log(\frac{1}{sin(a)})[a]da\)</span> using Monte Carlo integration with
 K=100 draws</h4>
-<pre class="r"><code>K&lt;-100
+<pre class="r"><code>K&lt;-10000
 alpha&lt;-2
 beta&lt;-1
 
 a&lt;- runif(K,0,1)
 draws&lt;-dbeta(a,alpha,beta)
-f.a&lt;-(\(a) log(1/sin(a)))
-mean(f.a(draws)*draws)</code></pre>
-<pre><code>## [1] 0.1737568</code></pre>
-<pre class="r"><code>exp(1)</code></pre>
-<pre><code>## [1] 2.718282</code></pre>
+mean(log(1/sin(a)) * draws)</code></pre>
+<pre><code>## [1] 0.5874721</code></pre>
+<pre class="r"><code>#0.1773417</code></pre>
 </div>
 
 

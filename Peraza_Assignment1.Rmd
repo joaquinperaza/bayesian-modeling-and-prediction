@@ -55,4 +55,4 @@ hist(draws_power)
 7. What well-known and named probability density function is shown in the histogram you made in question 6.
 
 
-|       **Poisson distribution**
+|       **Exponential distribution**
