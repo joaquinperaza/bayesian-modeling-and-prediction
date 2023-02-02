@@ -1,0 +1,60 @@
+---
+title: "Peraza_Assignment3"
+author: "Joaquin Peraza"
+date: "2023-02-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1
+
+$[y|a] = Bern(a)$
+
+$[a] = Beta(\alpha, \beta)$
+
+$[a|y] = {[y|a][a]}$
+
+$MH = \frac{[y|a][a]}{[y|a.old][a.old]}$
+
+``` {r}
+set.seed(1)
+a.init <- 0.5
+K <- 5000000
+
+samples <- matrix(,K,1)
+samples[1,] <- a.init
+
+for (i in 2:K){
+  a.try <- runif(1)
+  a.old <- samples[i-1,]
+  mh <-a.try/a.old
+  #Decide if keep the value
+  keep <- ifelse(mh>1, 1, rbinom(1,1,mh)) 
+  samples[i,] <- ifelse(keep==1, a.try, a.old)
+}
+```
+
+### Question 2
+
+``` {r}
+hist(samples[1001:5000,], freq = FALSE, xlab = "a", ylab = "[a]", main = "Histogram of last 4000 draws")
+```
+
+### Question 3
+
+$\int_0^1 [a] dx$
+
+``` {r}
+mean(samples[1001:5000,])
+mean(samples)
+```
+
+### Question 5
+
+``` {r}
+samples[1:50,]
+```
+

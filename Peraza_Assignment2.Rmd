@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-set.seed(100)
+set.seed(1)
 ```
 Given [a]: $a∼beta(α=2,β=1)$
 
@@ -59,13 +59,15 @@ beta<-1
 a<- runif(K,0,1)
 draws<-dbeta(a,alpha,beta)
 mean(draws)
+
+
 ```
 
 &nbsp;
 
 #### 4.Write 3-5 sentences comparing the results you obtained in questions 1-3 and explain why the analytical and numerical results differ.
 
-The analytical method returned 1 which was the exact value of the integral. But when the quadrature method was used with 40 equally spaced support points in question 2 and the Monte Carlo integration method with 100 random draws in question 3, the obtained numerical results were of 1.025641 and 1.035694 respectively. These numerical results were not exact values, they were approximations of the true value. The difference between the analytical and numerical results was due to the approximation error introduced by the quadrature and Monte Carlo methods. The quadrature method used a fixed number of support points while the Monte Carlo method used random sampling. Both methods may not have fully captured the behavior of the function being integrated, which resulted in the difference in the results. The accuracy of both numerical methods can be increased at the expense of more computing effort, dependending on the importance of the precission in this operations and the available resources the parameters M or K can be increased to achieve better results to split the area under the curve into more smallers quadrants or to increase the number of random draws.
+The analytical method returned 1 which was the exact value of the integral, but when the quadrature method was used with 40 equally spaced support points in question 2 and the Monte Carlo integration method with 100 random draws in question 3, the obtained numerical results were of 1.025641 and 1.035694 respectively. These numerical results were not exact values, they were approximations of the true value, and the difference between the analytical and numerical results was due to the approximation error introduced by the quadrature and Monte Carlo methods. The quadrature method used a fixed number of support points while the Monte Carlo method used random sampling. Both methods may not have fully captured the behavior of the function being integrated, which resulted in the difference in the results. The accuracy of both numerical methods can be increased at the expense of more computing effort, dependending on the importance of the precission in this operations and the available resources the parameters M or K can be increased to achieve better results to split the area under the curve into more smallers quadrants or to increase the number of random draws.
 
 &nbsp;
 
@@ -128,22 +130,18 @@ $∫f(x)g'(x) \ dx = f(x)g(x) - ∫f'(x)g(x)$
 
 $f(x)=log(sin(x)) \ \ \ \ g'(x)=x$
 
-$-2log(sin(x)) \cdot \frac{x^2}{2} - ∫ \frac{cos(x)}{sin(x)} \cdot  \frac{x^2}{2} dx$
-
-
+$-2log(sin(x)) \cdot \frac{x^2}{2} - ∫ \frac{cos(x)}{sin(x)} \cdot  \frac{x^3}{6} dx$
 
 #### 9. Approximate the integral  $∫_{0}^1 log(\frac{1}{sin(a)})[a]da$ using Monte Carlo integration with  K=100 draws
 
 ```{r Q9}
-K<-10000
+K<-100
 alpha<-2
 beta<-1
 
 a<- runif(K,0,1)
 draws<-dbeta(a,alpha,beta)
 mean(log(1/sin(a)) * draws)
-
-
 ```
 
 

@@ -1,0 +1,91 @@
+---
+title: 'Class 02022023'
+author: "Joaquin Peraza"
+date: "2023-02-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+set.seed(1)
+K<-5000
+samples <- rbeta(K,2,1)
+hist(samples, xlab="a", ylab = "[a]", freq = FALSE)
+
+#Trace plot
+plot(1:K, samples, type='l' ,xlab="K", ylab = "a")
+
+# Ideal case autocorrelation plot
+acf(samples)
+```
+
+```{r}
+a.init <- 0.01
+
+samples <- matrix(NA,K,1)
+samples[1,] <- a.init
+for (k in 2:K){
+  a.old <- samples[k-1,]
+  a.try <- runif(1)
+  mh <- a.try/a.old
+  keep <- ifelse(mh>1,1,rbinom(1,1,mh))
+  samples[k,] <- ifelse(keep==1, a.try, a.old)
+}
+hist(samples, xlab="a", ylab = "[a]", freq = FALSE)
+# Trace plot
+plot(1:K, samples, type='l' ,xlab="K", ylab = "a")
+
+# Autocorrelation plot
+acf(samples)
+```
+
+
+```{r}
+a.init <- 0.01
+sigma.tune<-0.1
+
+samples <- matrix(NA,K,1)
+samples[1,] <- a.init
+
+for (k in 2:K){
+  a.old <- samples[k-1,]
+  a.try <- rnorm(1,a.old,sigma.tune)
+  mh <- ifelse(a.try>0 & a.try<1, a.try/a.old, 0)
+  keep <- ifelse(mh>1,1,rbinom(1,1,mh))
+  samples[k,] <- ifelse(keep==1, a.try, a.old)
+}
+hist(samples, xlab="a", ylab = "[a]", freq = FALSE)
+# Trace plot
+plot(1:K, samples, type='l' ,xlab="K", ylab = "a")
+
+# Autocorrelation plot
+acf(samples)
+```
+
+
+
+### Bat rabie  example
+$y \~ Bern(p)$
+
+$\alpha (p) = \Pi ~ p^{y:} (1-p) ^{1-y}$
+
+$\hat{p} = \frac{1}{n} \sum{y}$
+
+$\hat p \pm 1.96 \sqrt{\frac{\hat p (1-\hat p)}{n}}$
+
+
+
+```{r}
+y <- 0
+
+```
+
+
+
+
+
+
+

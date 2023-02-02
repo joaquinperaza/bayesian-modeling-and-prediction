@@ -1,0 +1,41 @@
+---
+title: "Class"
+author: "Joaquin Peraza"
+date: "2023-01-31"
+output: html_document
+---
+
+$[y|p] = Bern(p)$
+
+$[p] = Beta(\alpha, \beta)$
+
+$[p|y] = {[y|p][p]}$
+
+$MH = \frac{[y|p][p]}{[y|p.old][p.old]}$
+
+``` {r}
+a<-rbeta(10^6,2,1)
+
+hist(a, freq = FALSE, xlab = "a", ylab = "[a]")
+
+
+a.init <- 0.01
+K <- 5000
+k <- 1
+samples <- matrix(,K,1)
+samples[1,] <- a.init
+
+for (i in 2:K){
+  a.try <- runif(1)
+  a.old <- samples[i-1,]
+  mh <-a.try/a.old
+  #Function to decide if kkeo the value
+  keep <- ifelse(mh>1, 1, rbinom(1,1,mh))
+  samples[i,] <- ifelse(keep==1, a.try, a.old)
+}
+hist(samples, freq = FALSE, xlab = "a", ylab = "[a]")
+
+samples
+```
+
+$MH = \frac{[y|p][p]}{[y|p.old][p.old]}$
