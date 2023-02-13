@@ -7,22 +7,23 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+set.seed(1)
+
 ```
 
 ### Question 1
 
-$[y|a] = Bern(a)$
-
 $[a] = Beta(\alpha, \beta)$
+
+$[y|a] = Bern(a)$
 
 $[a|y] = {[y|a][a]}$
 
 $MH = \frac{[y|a][a]}{[y|a.old][a.old]}$
 
 ``` {r}
-set.seed(1)
 a.init <- 0.5
-K <- 5000000
+K <- 5000
 
 samples <- matrix(,K,1)
 samples[1,] <- a.init
@@ -31,7 +32,6 @@ for (i in 2:K){
   a.try <- runif(1)
   a.old <- samples[i-1,]
   mh <-a.try/a.old
-  #Decide if keep the value
   keep <- ifelse(mh>1, 1, rbinom(1,1,mh)) 
   samples[i,] <- ifelse(keep==1, a.try, a.old)
 }
@@ -40,21 +40,24 @@ for (i in 2:K){
 ### Question 2
 
 ``` {r}
-hist(samples[1001:5000,], freq = FALSE, xlab = "a", ylab = "[a]", main = "Histogram of last 4000 draws")
+hist(samples[1001:5000], freq = FALSE, xlab = "a", ylab = "[a]", main = "Histogram of last 4000 draws")
 ```
 
 ### Question 3
 
-$\int_0^1 [a] dx$
+
 
 ``` {r}
-mean(samples[1001:5000,])
-mean(samples)
+mean(samples[1001:5000])
 ```
 
-### Question 5
+We are approximating the integral $\int_0^1 [a]a ~da$, which is equal to the $E(a)= \frac{2}{3}$.
+
+### Question 4
+
+In this implementation of the Metropolis-Hastings algorithm, if the new value proposed in each iteration is not accepted, the algorithm will reject the proposed value by storing the previous one in the sample again. This repetition can result in the same random number appearing multiple times in a row. This phenomenon, known as autocorrelation, can potentially affect the accuracy of the approximations. If the autocorrelation is high, it can lead to a lack of diversity in the generated samples, which in turn can result in a less accurate estimation of the target distribution. 
 
 ``` {r}
-samples[1:50,]
+samples[1:50]
 ```
 
