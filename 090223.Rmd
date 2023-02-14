@@ -1,0 +1,55 @@
+---
+title: "090223"
+author: "Joaquin Peraza"
+date: "2023-02-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+$[p] = Beta(\alpha, \beta)$
+
+$[p|y] = [y|p][p]/\int_0^1[y|p][p]$
+
+$[p|y] = Beta(\alpha + y, \beta+1-y)$
+
+### Second model
+
+$[z|p] = Bern(p)$
+
+$[p] = Bern(\alpha, \beta)$
+
+$$
+[yij|aj, z:] =
+\begin{cases}
+0 \ :f Z: = 0 \\
+Bern(a_j) :f Z_i =1
+\end{cases}
+$$
+#### Process model
+
+$[Zi|p] = Bern(p)$
+
+#### Prior
+
+$[p] = Beta(\alpha, \beta)$
+
+$[a_1] = 0.80$
+
+$[a_2] = 0.99$
+
+*Zi -> The bat he contacted?
+
+$[p,z | y_{11}, y_{12}] = [y_{11}|p,z_1]*[y_{12}|p,z_1]*[z|p][p] / \sum\int"" dp$
+
+$[p|y_{11}, y_{12}] = \sum[p,zi|y_{11}, y_{12}]$
+
+$[z_1|y_{11}, y_{12}] = \int [p,z_i|y_{11}, y_{12}] dp$
+
+
+
+y1 <- 0 
+y2 <- 0
+

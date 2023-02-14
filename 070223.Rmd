@@ -1,0 +1,99 @@
+---
+title: '070223'
+author: "Joaquin Peraza"
+date: "2023-02-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Frequentist apporach
+
+$y = 0$
+
+$[y|p] = Bern(p)$
+
+$\vec{y} = (y_1,y_2,y_3,...)$
+
+$[\vec{y}|p] = \Pi Bern(p)$
+
+$\hat{p} = \frac{1}{n} \sum y$
+
+$\hat{p} = \frac{\sum y:+\frac{1}{2}}{n+1}$
+
+Bayesian approadch add more information to the model
+
+$[y|p] = Bern(p)$
+
+$[\vec{y}|p] = \Pi Bern(p)$
+
+$[p] = Beta(\alpha=1, \beta=1)$
+
+Every probability is possible with equaly likely to occur
+
+Fitting the model
+
+$[p|y] = \frac{[\underline{y}|p] \cdot[p]}{\int  [\underline{y}|p][p] dp}$
+
+$[p|y] = Beta(\tilde{\alpha}, \tilde{\beta})$
+
+$\tilde{\alpha} = \alpha + \sum y:$
+
+$\tilde{\beta} = \beta + n -\hat{\sum} y:$
+
+
+Posterior distribution 
+
+$\alpha = 1$
+
+$\beta = 2$
+
+
+```{r}
+y <- 0
+n <- length(y)
+
+alpha <- 1
+beta <- 1
+
+K <- 5000
+alpha.tilde <- alpha+sum(y)
+beta.tilde <- beta+n-sum(y)
+
+p.y <- rbeta(K, alpha.tilde, beta.tilde)
+
+hist(p.y, freq = FALSE, xlab = "p|y", ylab = "[y|p]")
+
+samples <- matrix(,K,1)
+samples[1,] <- 0.01
+
+for (k in 2:K){
+  p.old <- samples[k-1,]
+  p.try <- runif(1,0,1)
+  mh <- (prod(dbinom(y,1,p.try))*dbeta(p.try,alpha,beta)) /
+        (prod(dbinom(y,1,p.old))*dbeta(p.old,alpha,beta))
+  keep <- ifelse(mh>1,1,rbinom(1,1,mh))
+  samples[k,] <- ifelse(keep==1, p.try, p.old)
+}
+
+hist(samples, freq = FALSE, xlab = "p|y", ylab = "[y|p]")
+
+
+
+samples <- matrix(,K,1)
+samples[1,] <- 1/10^7
+
+for (k in 2:K){
+  p.old <- samples[k-1,]
+  p.try <- runif(1,1/10^9, 1/10^6)
+  mh <- (prod(dbinom(y,1,p.try))*dunif(p.try,1/10^9, 1/10^6)) /
+        (prod(dbinom(y,1,p.old))*dunif(p.old,1/10^9, 1/10^6))
+  keep <- ifelse(mh>1,1,rbinom(1,1,mh))
+  samples[k,] <- ifelse(keep==1, p.try, p.old)
+}
+
+hist(samples, freq = FALSE, xlab = "p|y", ylab = "[y|p]")
+samples
+```
