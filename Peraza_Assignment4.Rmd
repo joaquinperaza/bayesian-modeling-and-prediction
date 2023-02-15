@@ -17,8 +17,6 @@ $a \sim N (a.old, 0.0001)$
 
 $[y|a] = Bern(a)$
 
-
-
 $[a|y] = {[y|a][a]}$
 
 $MH = \frac{[y|a][a] [a.old|a]}{[y|a.old][a.old] [a|a.old]}$
@@ -64,8 +62,6 @@ Proposal distribution
 $a \sim N (a.old, 0.25)$
 
 $[y|a] = Bern(a)$
-
-
 
 $[a|y] = {[y|a][a]}$
 
@@ -113,8 +109,6 @@ Proposal distribution
 $a \sim N (a.old, 10)$
 
 $[y|a] = Bern(a)$
-
-
 
 $[a|y] = {[y|a][a]}$
 
