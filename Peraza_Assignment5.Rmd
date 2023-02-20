@@ -1,0 +1,106 @@
+---
+title: "Assignment5"
+author: "Joaquin Peraza"
+date: "2023-02-18"
+output: html_document
+---
+#### Data model
+
+\begin{equation*}
+[y_{ij}|z_i]
+ = \begin{cases}
+0 ~ \text{if} ~ z_i=0, \\
+Bern(a_j) ~ \text{if} ~ z_i=1,
+\end{cases}
+\end{equation*}
+
+#### Process model
+
+$$[Zi|p] = Bern(p)$$
+
+#### Prior
+
+$[p] = Beta(\alpha, \beta)$
+
+$[a_1] = 0.80$
+
+$[a_2] = 0.99$
+
+*Zi -> The actual bat that was tested
+
+$$[p,zi | y_{11}, y_{12}] = \frac{[y_{11}|p,z_i]*[y_{12}|p,z_i]*[z|p][p]} {\sum_{zi=0}^{1}\int_0^1 [y_{11}|p,z_i]*[y_{12}|p,z_i]*[z|p][p] ~ dp}$$
+
+$$[p|y_{11}, y_{12}] = \sum_{zi=0}^1[p,zi|y_{11}, y_{12}]$$
+
+$$[z_i|y_{11}, y_{12}] = \int_0^1 [p,z_i|y_{11}, y_{12}] ~ dp$$
+```{r}
+
+# Initialize parameters
+y11 <- 0
+y12 <- 0
+
+alpha.p <- 1
+beta.p <- 1
+
+a1 <- 0.8 # Probability of true positive for rapid test
+a2 <- 0.99 # Probability of true positive for PCR test
+
+z1 <- 0.05 # Starting value for p_z1
+
+K <- 100000 # Number of iterations for MH algorithm
+
+
+```
+
+```{r}
+# Define data
+y11 <- 0
+y22 <- 0
+
+# Define prior parameters
+alpha.p <- 1
+beta.p <- 1
+a1 <- 0.8
+a2 <- 0.99
+
+# Define number of iterations
+K <- 10000
+
+# Initialize posterior samples
+p_samples <- numeric(K)
+z1_samples <- numeric(K)
+
+# Set initial values for parameters
+p_samples[1] <- rbeta(1, alpha.p, beta.p)
+z1_samples[1] <- rbinom(1, 1, p_samples[1])
+
+# Gibbs sampling loop
+for (k in 2:K) {
+  
+  # Sample p from the posterior distribution
+  p_samples[k] <- rbeta(1, alpha.p, beta.p)
+  
+  # Sample z1 from the posterior distribution
+  p_z1 <- p_samples[k]^(sum(c(y11, y22) == 1)) * (1 - p_samples[k])^(2 - sum(c(y11, y22) == 1))
+  z1_samples[k] <- rbinom(1, 1, p_z1)
+}
+
+# Discard burn-in period
+burn_in <- 1000
+p_samples <- p_samples[(burn_in + 1):K]
+z1_samples <- z1_samples[(burn_in + 1):K]
+
+
+hist(p_samples, breaks = 30, main = "Posterior distribution of p", xlab = "p")
+hist(z1_samples, breaks = 10, main = "Posterior distribution of z1", xlab = "z1")
+p_samples[1000:1020]
+z1_samples[1000:1020]
+
+```
+
+
+
+
+
+
+
