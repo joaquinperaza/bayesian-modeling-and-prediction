@@ -1,0 +1,42 @@
+---
+title: '02212023'
+author: "Joaquin Peraza"
+date: "2023-02-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Data model**
+
+$$[y_i|z_i]
+ = \begin{cases}
+0 ~ \text{if} ~ z_i=0, \\
+Bern(a_j) ~ \text{if} ~ z_i=1,
+\end{cases}
+$$**Process Model**
+
+$$[z_i|p] = Bern(p)$$**Parameter model**
+
+$$[p] = Beta(\alpha_p, \beta_p)$$
+
+**Gibbs sampler**
+
+1.  Sample from $[p|z_i, y_{11}, y_{12}]$
+2.  Sample from $[z_i|p, y_{11}, y_{12}]$
+3.  Go back to step K times.
+
+First step:
+
+$$
+[p|z_1,y_{11},y_{12}] \alpha[z_i|p][p] \\
+Bern(p)*Beta(\alpha_p, \beta_p) \\
+Beta(\alpha_p+z_i, \beta_p-z_i)
+$$
+
+$$
+[z_i|p, y_{11}, y_{12}]=Bern(\tilde{p}) \\
+\tilde{p} = \frac{p \prod_{j=1}^j(1-a_j)}{(p \prod_{j=1}^j(1-a_j))+(1-p)}
+$$
