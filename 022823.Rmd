@@ -1,0 +1,17 @@
+---
+title: "022823"
+author: "Joaquin Peraza"
+date: "2023-02-28"
+output: html_document
+---
+$$
+Parameter model \\
+y_i=z_i \\
+Process model \\
+[z|\beta]=N(X, \beta, \sigma^2I) \\
+Parameter model \\
+\beta_{vector} \sim N(0_{\tilde}, \sigma_b^2 I)
+$$
+```{r}
+
+```

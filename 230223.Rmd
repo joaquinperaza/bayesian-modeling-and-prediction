@@ -9,4 +9,26 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Sample from $a1,a2$ in adition to $y11,y12$. Random walk MH
+Sample from $a1,a2$ in addition to $y11,y12$. Random walk MH.
+
+### Linear regression
+
+2 million slopes paramaters
+
+Lasso, trims down Bp to limit the sum of slopes, being useful for dimensional reduction of the data.
+
+$\sum |Bp|<\lambda$
+
+$Bp ~ \sim Laplace(0,\lambda)$
+
+Data model
+
+$y = z$
+
+Process model
+
+$z=\beta_0 + \beta_1 * x_1 \beta_2  * x_2…~~E \sim N(0,\sigma^2) .$
+
+$[z|\beta, \sigma^2] = N(x \beta, \sigma^2 I)$
+
+Parameter model

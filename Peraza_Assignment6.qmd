@@ -82,7 +82,7 @@ y2 <- 0 # Results from PCR test
 
 # Preliminary MCMC stuff
 K <- 1e6
-sigma.tune <- 0.1
+sigma.tune <- 0.01
 samples <- matrix(NA,K,4)
 colnames(samples) <- c("z1", "p", "a1", "a2")
 
@@ -93,7 +93,7 @@ a2.initial <- rbeta(1,alpha.a2, beta.a2)
 a1 <- a1.initial
 a2 <- a2.initial
 p <- p.initial
-
+z1 <- 0
 samples[1,] <- c(NA, p, a1.initial, a2.initial)
 
 # Gibbs sampler
@@ -101,13 +101,16 @@ for(k in 2:K){
   
   #Metropolis-Hasting for [a1]
   a1.try <- rnorm(1,a1, sigma.tune)
-  mh <- ifelse(a1.try > 0 & a1.try < 1, dbeta(a1.try, alpha.a1, beta.a1) / dbeta(a1, alpha.a1, beta.a1),0)
+  mh <- ifelse(a1.try > 0 & a1.try < 1, ifelse(z1==0, 1, dbinom(y1, 1, a1.try))*dbeta(a1.try, alpha.a1, beta.a1) / ifelse(z1==0, 1, dbinom(y1, 1, a1))*dbeta(a1, alpha.a1, beta.a1)
+               ,0)
   keep <- ifelse(mh>1,1,rbinom(1,1,mh))
   a1 <- ifelse(keep==1, a1.try, a1)
   
   #Metropolis-Hasting for [a2]
   a2.try <- rnorm(1,a2, sigma.tune)
-  mh <- ifelse(a2.try > 0 & a2.try < 1, dbeta(a2.try, alpha.a2, beta.a2) / dbeta(a2, alpha.a2, beta.a2),0)
+  mh <- ifelse(a2.try > 0 & a2.try < 1, 
+               ifelse(z1==0, 1, dbinom(y2, 1, a2.try)) * dbeta(a2.try, alpha.a2, beta.a2) / ifelse(z1==0, 1, dbinom(y2, 1, a2)) * dbeta(a2, alpha.a2, beta.a2)
+               ,0)
   keep <- ifelse(mh>1,1,rbinom(1,1,mh))
   a2 <- ifelse(keep==1, a2.try, a2)
   
@@ -155,4 +158,4 @@ The prevalence rate (p) shows an expected value of p given all the rest of the p
 
 For the bat rabies state, the expected value (E) of $[z1|p,a1,a2,y1,y2]$ is 2.12e-05, indicating that the probability of the actual bat rabies state being positive is very low. The 95% HDI for the bat rabies state is \[0, 0\], indicating less than 5% of the credible interval is outside 0.
 
-When we have priors for a1 (accuracy of rapid tests) and a2 (accuracy of PCR tests) in addition to p, it means that we have some prior beliefs or knowledge about the possible values of a1 and a2, for example, past studies, while still accounting for possibles uncertainties in this parameters, allowing more accurate estimations of \[p\] and \[z1\], thus, improve the probability of a correct numeric estimation of z1 (actual state of the tested bat).
+When we have priors for a1 (accuracy of rapid tests) and a2 (accuracy of PCR tests) in addition to p, it means that we have some prior beliefs or knowledge about the possible values of a1 and a2 (true positive rate), for example, past studies, while still accounting for possibles uncertainties in this parameters, allowing more accurate estimations of \[p\] and \[z1\], thus, improve the probability of a correct numeric estimation of z1 (actual state of the tested bat).
