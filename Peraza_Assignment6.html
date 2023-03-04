@@ -145,29 +145,72 @@ Bern(a_j) ~ \text{if} ~ z_i=1,
 <p><span class="math display">\[[Zi|p] = Bern(p)\]</span></p>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section">1.</h3>
-<pre><code>Priors:</code></pre>
+<p>Priors</p>
 <p><span class="math display">\[[p]=Beta(\alpha_p, \beta_p) ~~ \alpha_p=1, \beta_p=100\]</span></p>
 <p><span class="math display">\[[a1]=Beta(\alpha_{a1}, \beta_{a1}) ~~ \alpha_p=80, \beta_p=20\]</span></p>
 <p><span class="math display">\[[a2]=Beta(\alpha_{a2}, \beta_{a2}) ~~ \alpha_p=22, \beta_p=200\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hyperparameters for priors</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>alpha.p <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>beta.p <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>alpha.a1 <span class="ot">&lt;-</span> <span class="dv">80</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>beta.a1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>alpha.a2 <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>beta.a2 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">1</span>))</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="fu">dbeta</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>),alpha.p,beta.p), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"navy"</span>, <span class="at">xlab =</span> <span class="st">"p"</span>, <span class="at">ylab =</span> <span class="st">"[p]"</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="fu">dbeta</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>),alpha.a1,beta.a1), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"navy"</span>, <span class="at">xlab =</span> <span class="st">"a1"</span>, <span class="at">ylab =</span> <span class="st">"[a1]"</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="fu">dbeta</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>),alpha.a2,beta.a2), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"navy"</span>, <span class="at">xlab =</span> <span class="st">"a2"</span>, <span class="at">ylab =</span> <span class="st">"[a2]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hyperparameters for priors</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>alpha.p <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>beta.p <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>alpha.a1 <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>beta.a1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>alpha.a2 <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>beta.a2 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">1</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="fu">dbeta</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>),alpha.p,beta.p), <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"navy"</span>, <span class="at">xlab =</span> <span class="st">"p"</span>, <span class="at">ylab =</span> <span class="st">"[p]"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="fu">dbeta</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>),alpha.a1,beta.a1), <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"navy"</span>, <span class="at">xlab =</span> <span class="st">"a1"</span>, <span class="at">ylab =</span> <span class="st">"[a1]"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), <span class="fu">dbeta</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>),alpha.a2,beta.a2), <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"navy"</span>, <span class="at">xlab =</span> <span class="st">"a2"</span>, <span class="at">ylab =</span> <span class="st">"[a2]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Peraza_Assignment6_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test how reasonable is [a1] (Rapid test true positive rate) prior</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a1.prior <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="fl">1e5</span>,alpha.a1,beta.a1)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a1.prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7997552</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(a1.prior, <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lower    upper 
+0.721404 0.876135 
+attr(,"credMass")
+[1] 0.95</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test how reasonable is [a2] (PCR true positive rate) prior</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>a2.prior <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="fl">1e5</span>,alpha.a2,beta.a2)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(a2.prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9900829</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(a2.prior, <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    lower     upper 
+0.9765010 0.9997431 
+attr(,"credMass")
+[1] 0.95</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test how reasonable is [p] prior</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p.prior <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="fl">1e5</span>,alpha.p,beta.p)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.009904964</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(p.prior, <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       lower        upper 
+2.975577e-09 2.964842e-02 
+attr(,"credMass")
+[1] 0.95</code></pre>
+</div>
+</div>
+<p>The priors used for the true positive rates of the rapid test and PCR test seem reasonable for the rabies data example. The expected values of the proposed beta distributions are very close to the true positive rates given by the manufacturer, indicating that our prior beliefs are consistent with external information. The 95% credible intervals also encompass the known true positive rates, suggesting that the priors are not too narrow or too wide. Also the expected value and HDI of the prevalence rate matches with the literature review done in the previous assignment.</p>
 </section>
 <section id="section-1" class="level3">
 <h3 class="anchored" data-anchor-id="section-1">2.</h3>
@@ -175,13 +218,13 @@ Bern(a_j) ~ \text{if} ~ z_i=1,
 <li><p>Choose starting values for the parameters: p, z1, a1, and a2.</p></li>
 <li><p>For each iteration of the algorithm:</p>
 <ul>
-<li><p>Sample a new value for a1 from the posterior distribution p(a1|p,z1,a2,y1,y2) using Metropolis-Hastings.</p></li>
-<li><p>Sample a new value for a2 from the posterior distribution p(a2|p,z1,a1,y1,y2) using Metropolis-Hastings</p></li>
-<li><p>Sample a new value for p from the full conditional [p|z1,a1,a2,y1,y2].</p></li>
-<li><p>Take one draw from the full conditional of z1 [z1|p,a1,a2,y1,y2].</p></li>
+<li><p>Sample a new value for a1 from the posterior distribution <span class="math inline">\([a1|p,z1,a2,y1,y2]\)</span> using Metropolis-Hastings.</p></li>
+<li><p>Sample a new value for a2 from the posterior distribution <span class="math inline">\([a2|p,z1,a1,y1,y2]\)</span> using Metropolis-Hastings</p></li>
+<li><p>Sample a new value for p from the full conditional <span class="math inline">\([p|z1,a1,a2,y1,y2]\)</span>.</p></li>
+<li><p>Take one draw from the full conditional of z1 <span class="math inline">\([z1|p,a1,a2,y1,y2]\)</span>.</p></li>
 <li><p>Store the sampled values.</p></li>
 </ul></li>
-<li><p>Repeat step 2 for a large number of iterations (e.g., 10,000).</p></li>
+<li><p>Repeat step 2 for a large number of iterations (e.g., 1e6).</p></li>
 <li><p>Discard the first (20% of K) as burn-in interval.</p></li>
 <li><p>Store the remaining iterations as samples from the posterior distribution.</p></li>
 </ol>
@@ -189,71 +232,82 @@ Bern(a_j) ~ \text{if} ~ z_i=1,
 <section id="section-2" class="level3">
 <h3 class="anchored" data-anchor-id="section-2">3.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Results from rapid test</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Results from PCR test</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Preliminary MCMC stuff</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fl">1e6</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>sigma.tune <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,K,<span class="dv">4</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(samples) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"z1"</span>, <span class="st">"p"</span>, <span class="st">"a1"</span>, <span class="st">"a2"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>p.initial <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.p, beta.p)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>a1.initial <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.a1, beta.a1)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>a2.initial <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.a2, beta.a2)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> a1.initial</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> a2.initial</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p.initial</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>samples[<span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, p, a1.initial, a2.initial)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibbs sampler</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>K){</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Metropolis-Hasting for [a1]</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  a1.try <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>,a1, sigma.tune)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  mh <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a1.try <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> a1.try <span class="sc">&lt;</span> <span class="dv">1</span>, <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y1, <span class="dv">1</span>, a1.try))<span class="sc">*</span><span class="fu">dbeta</span>(a1.try, alpha.a1, beta.a1) <span class="sc">/</span> <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y1, <span class="dv">1</span>, a1))<span class="sc">*</span><span class="fu">dbeta</span>(a1, alpha.a1, beta.a1)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>               ,<span class="dv">0</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(mh<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,mh))</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(keep<span class="sc">==</span><span class="dv">1</span>, a1.try, a1)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Metropolis-Hasting for [a2]</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  a2.try <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>,a2, sigma.tune)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  mh <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a2.try <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> a2.try <span class="sc">&lt;</span> <span class="dv">1</span>, </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>               <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y2, <span class="dv">1</span>, a2.try)) <span class="sc">*</span> <span class="fu">dbeta</span>(a2.try, alpha.a2, beta.a2) <span class="sc">/</span> <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y2, <span class="dv">1</span>, a2)) <span class="sc">*</span> <span class="fu">dbeta</span>(a2, alpha.a2, beta.a2)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>               ,<span class="dv">0</span>)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(mh<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,mh))</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(keep<span class="sc">==</span><span class="dv">1</span>, a2.try, a2)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Gibbs Sampler</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  p.tilde <span class="ot">&lt;-</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a1)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a2))<span class="sc">/</span>((p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a1)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a2))<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>p)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  z1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">min</span>(<span class="fu">c</span>(y1,y2))<span class="sc">==</span><span class="dv">0</span>,<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p.tilde),<span class="dv">1</span>)</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take one draw from the full conditional of p (i.e., [p|z1,y1,y2])</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.p<span class="sc">+</span>z1,beta.p<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>z1)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save samples</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  samples[k,] <span class="ot">&lt;-</span> <span class="fu">c</span>(z1,p,a1,a2)</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Discard burn-in interval</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> samples[<span class="fu">round</span>(K<span class="sc">*</span><span class="fl">0.2</span>)<span class="sc">:</span>K,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Results from rapid test</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Results from PCR test</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Preliminary MCMC stuff</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fl">1e6</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>sigma.tune <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,K,<span class="dv">4</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(samples) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"z1"</span>, <span class="st">"p"</span>, <span class="st">"a1"</span>, <span class="st">"a2"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>p.initial <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.p, beta.p)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>a1.initial <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.a1, beta.a1)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>a2.initial <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.a2, beta.a2)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> a1.initial</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> a2.initial</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p.initial</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>samples[<span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, p, a1.initial, a2.initial)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibbs sampler</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>K){</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Metropolis-Hasting for [a1]</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  a1.try <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>,a1, sigma.tune)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  mh <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a1.try <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> a1.try <span class="sc">&lt;</span> <span class="dv">1</span>, </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>               <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y1, <span class="dv">1</span>, a1.try)) <span class="sc">*</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">dbeta</span>(a1.try, alpha.a1, beta.a1) <span class="sc">/</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y1, <span class="dv">1</span>, a1)) <span class="sc">*</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">dbeta</span>(a1, alpha.a1, beta.a1)</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>               ,<span class="dv">0</span>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(mh<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,mh))</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(keep<span class="sc">==</span><span class="dv">1</span>, a1.try, a1)</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Metropolis-Hasting for [a2]</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  a2.try <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>,a2, sigma.tune)</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  mh <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a2.try <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> a2.try <span class="sc">&lt;</span> <span class="dv">1</span>, </span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>               <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y2, <span class="dv">1</span>, a2.try)) <span class="sc">*</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">dbeta</span>(a2.try, alpha.a2, beta.a2) <span class="sc">/</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">ifelse</span>(z1<span class="sc">==</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fu">dbinom</span>(y2, <span class="dv">1</span>, a2)) <span class="sc">*</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">dbeta</span>(a2, alpha.a2, beta.a2)</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>               ,<span class="dv">0</span>)</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(mh<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,mh))</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(keep<span class="sc">==</span><span class="dv">1</span>, a2.try, a2)</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Gibbs Sampler</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>  p.tilde <span class="ot">&lt;-</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a1)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a2))<span class="sc">/</span>((p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a1)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>a2))<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>p)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>  z1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">min</span>(<span class="fu">c</span>(y1,y2))<span class="sc">==</span><span class="dv">0</span>,<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,p.tilde),<span class="dv">1</span>)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take one draw from the full conditional of p (i.e., [p|z1,y1,y2])</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>,alpha.p<span class="sc">+</span>z1,beta.p<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>z1)</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save samples</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>  samples[k,] <span class="ot">&lt;-</span> <span class="fu">c</span>(z1,p,a1,a2)</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Discard burn-in interval</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> samples[<span class="fu">round</span>(K<span class="sc">*</span><span class="fl">0.2</span>)<span class="sc">:</span>K,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section-3" class="level3">
 <h3 class="anchored" data-anchor-id="section-3">4-7.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># Set up 2x2 grid for plots</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"z1"</span>], <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"z1"</span>, <span class="at">ylab=</span><span class="st">"[z1]"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"p"</span>],  <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"p"</span>,  <span class="at">ylab=</span><span class="st">"[p]"</span>,  <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"a1"</span>], <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"a1"</span>, <span class="at">ylab=</span><span class="st">"[a1]"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"a2"</span>], <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"a2"</span>, <span class="at">ylab=</span><span class="st">"[a2]"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># Set up 2x2 grid for plots</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"z1"</span>], <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"z1"</span>, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"[z1]"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"p"</span>],  <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"p"</span>,  </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"[p]"</span>,  <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"a1"</span>], <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"a1"</span>, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"[a1]"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(samples[, <span class="st">"a2"</span>], <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">"tomato"</span>, <span class="at">xlab =</span> <span class="st">"a2"</span>, </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"[a2]"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Peraza_Assignment6_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -262,24 +316,24 @@ Bern(a_j) ~ \text{if} ~ z_i=1,
 <section id="section-4" class="level3">
 <h3 class="anchored" data-anchor-id="section-4">8.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prevalence rate posterior summaries</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples[,<span class="st">"p"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prevalence rate posterior summaries</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples[,<span class="st">"p"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.009812956</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(samples[,<span class="st">"p"</span>], <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(samples[,<span class="st">"p"</span>], <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       lower        upper 
 5.216792e-09 2.925968e-02 
 attr(,"credMass")
 [1] 0.95</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bat rabies state posterior summaries</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples[,<span class="st">"z1"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bat rabies state posterior summaries</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples[,<span class="st">"z1"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.374992e-05</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(samples[,<span class="st">"z1"</span>], <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>HDInterval<span class="sc">::</span><span class="fu">hdi</span>(samples[,<span class="st">"z1"</span>], <span class="at">credMass =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>lower upper 
     0     0 
@@ -287,8 +341,8 @@ attr(,"credMass")
 [1] 0.95</code></pre>
 </div>
 </div>
-<p>The prevalence rate (p) shows an expected value of p given all the rest of the parameters is 0.0098, indicating that the estimated proportion of infected bats in the population is low. The 95% highest density interval (HDI) for the prevalence rate is [4.29e-09, 0.029], showing a 95% credible interval within extremely low values.</p>
-<p>For the bat rabies state, the expected value (E) of <span class="math inline">\([z1|p,a1,a2,y1,y2]\)</span> is 2.12e-05, indicating that the probability of the actual bat rabies state being positive is very low. The 95% HDI for the bat rabies state is [0, 0], indicating less than 5% of the credible interval is outside 0.</p>
+<p>The prevalence rate (p) shows an expected value of p given all the rest of the parameters is 0.0098, indicating that the estimated proportion of infected bats in the population is low. The 95% highest density interval (HDI) for the prevalence rate is [5.22e-09, 0.029], showing a 95% credible interval within extremely low values.</p>
+<p>For the bat rabies state, the expected value (E) of <span class="math inline">\([z1|p,a1,a2,y1,y2]\)</span> is 6.37e-05, indicating that the probability of the actual bat rabies state being positive is very low. The 95% HDI for the bat rabies state is [0, 0], indicating less than 5% of the credible interval is outside 0.</p>
 <p>When we have priors for a1 (accuracy of rapid tests) and a2 (accuracy of PCR tests) in addition to p, it means that we have some prior beliefs or knowledge about the possible values of a1 and a2 (true positive rate), for example, past studies, while still accounting for possibles uncertainties in this parameters, allowing more accurate estimations of [p] and [z1], thus, improve the probability of a correct numeric estimation of z1 (actual state of the tested bat).</p>
 </section>
 
