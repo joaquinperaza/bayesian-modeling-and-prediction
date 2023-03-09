@@ -27,7 +27,7 @@ $y = z$
 
 Process model
 
-$z=\beta_0 + \beta_1 * x_1 \beta_2  * x_2…~~E \sim N(0,\sigma^2) .$
+$z=\beta_0 + \beta_1 * x_1 \beta_2 * x_2…~~E \sim N(0,\sigma^2) .$
 
 $[z|\beta, \sigma^2] = N(x \beta, \sigma^2 I)$
 
