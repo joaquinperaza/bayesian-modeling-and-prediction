@@ -1,0 +1,13 @@
+---
+title: "032823"
+author: "Joaquin Peraza"
+format: html
+editor: visual
+---
+
+## Quarto
+
+```{r}
+norm.1=rnorm(1000, 100, 5)
+hist(norm.1)
+```
