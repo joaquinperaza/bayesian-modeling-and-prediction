@@ -8,6 +8,15 @@ editor: visual
 ## Quarto
 
 ```{r}
-norm.1=rnorm(1000, 100, 5)
-hist(norm.1)
+library(ggplot2)
+
+norm.1=rnorm(10000, 100, 5)
+norm.2=rnorm(10000, 200, 3)
+hist(norm.1, breaks=100)
+hist(norm.2, breaks=100)
+
+data = data.frame(norm.1, norm.2)
+
+hist(data, breaks=100)
+
 ```
