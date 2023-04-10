@@ -1,0 +1,40 @@
+---
+title: "032123"
+format: html
+editor: visual
+---
+
+## Bayesian Kriging
+
+```{r}
+url <- "https://www.dropbox.com/s/k2ajjvyxwvsbqgf/ISIT.txt?dl=1"
+df <- read.table(url, header = TRUE)
+df <- df[df$Station == 16,c(1,2,5,6)]
+
+head(df)
+```
+
+$$
+\underline y = \sim MVN(\underline \mu, \Sigma)
+$$
+
+```{r}
+plot(df$Depth, df$Sources, las = 1, ylim = c(0, 65), col = rgb(0, 0, 0, 0.25),
+ pch = 19, xlab = "Depth (m)", ylab = "Sources")
+```
+
+$$
+\Sigma_{nxn} = \sigma^2
+[
+\begin{matrix}
+1 & .5 \\
+.5 & 1
+\end{matrix}
+]
+$$
+
+```{r}
+library(MASS)
+x <- mvrnorm(n=1000, mu=c(0,0), Sigma= matrix(c(1, 0, 0, 1) ,2,2))
+plot(x)
+```
