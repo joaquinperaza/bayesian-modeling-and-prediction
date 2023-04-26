@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-## Bayesian Kriging
-
 ```{r}
 url <- "https://www.dropbox.com/s/k2ajjvyxwvsbqgf/ISIT.txt?dl=1"
 df <- read.table(url, header = TRUE)
@@ -17,11 +15,6 @@ head(df)
 $$
 \underline y = \sim MVN(\underline \mu, \Sigma)
 $$
-
-```{r}
-plot(df$Depth, df$Sources, las = 1, ylim = c(0, 65), col = rgb(0, 0, 0, 0.25),
- pch = 19, xlab = "Depth (m)", ylab = "Sources")
-```
 
 $$
 \Sigma_{nxn} = \sigma^2
@@ -35,6 +28,41 @@ $$
 
 ```{r}
 library(MASS)
-x <- mvrnorm(n=1000, mu=c(0,0), Sigma= matrix(c(1, 0, 0, 1) ,2,2))
+x <- mvrnorm(n=1000, mu=c(0,0), Sigma= matrix(c(1, 0.5, 0.5, 1) ,2,2))
 plot(x)
 ```
+
+## Bayesian Kriging
+
+```{r}
+plot(df$Depth, df$Sources, las = 1, ylim = c(0, 65), col = rgb(0, 0, 0, 0.25),
+ pch = 19, xlab = "Depth (m)", ylab = "Sources")
+m1 <- lm(Sources ~ Depth, data = df)
+abline(m1)
+plot(residuals(m1), df$Depth)
+```
+
+```{r}
+
+
+```
+
+$$
+C_{ij} = e^{-(|S_i - S_j|Q)^2}
+$$
+
+DM
+
+$$
+[\underline{y}|] = MVN(\beta_0+\beta_1x+n, \sigma_E^2 I
+$$PM
+
+$$
+n \sim MVN(0, \sigma_E^2C)
+$$
+
+Priors
+
+$$
+[\beta_0] [\beta_1][\sigma_E^2][][a]
+$$
