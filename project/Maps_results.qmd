@@ -1,0 +1,34 @@
+---
+title: "Results"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+```{r}
+library(rayshader)
+library(ncdf4)
+setwd("D://bayesian-soil-mositure-maps/soil-moisture-maps/")
+
+swc <- nc_open('storage/swc_20210301.nc')
+swc_vaue <- ncvar_get(swc, '__xarray_dataarray_variable__')
+
+
+
+#Here, I load a map with the raster package.
+loadzip = tempfile() 
+download.file("https://tylermw.com/data/dem_01.tif.zip", loadzip)
+localtif = raster::raster(unzip(loadzip, "dem_01.tif"))
+unlink(loadzip)
+
+#And convert it to a matrix:
+elmat = raster_to_matrix(localtif)
+
+#We use another one of rayshader's built-in textures:
+elmat %>%
+  sphere_shade(texture = "desert") %>%
+  plot_map()
+```
